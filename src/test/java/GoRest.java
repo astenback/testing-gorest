@@ -30,7 +30,10 @@ public class GoRest {
 
     @Test
     @Parameters({"path", "expectedStatusCode"})
-    public void get(@Optional("/users") String path, @Optional("200") int expectedStatusCode){
+    public static void get(@Optional("/users") String path, @Optional("200") String expectedStatusCode){
+
+        GoRest.baseURI = "https://gorest.co.in/public-api";
+        GoRest.port = 80;
 
         String endpoint = baseURI + path;
         System.out.println(endpoint);
@@ -44,10 +47,13 @@ public class GoRest {
                 .extract()
                 .response();
 
+
         statusCode = response.getStatusCode();
 
-        System.out.println("Asserting return Status Code for " + path + " equals " + expectedStatusCode);
-        assertEquals(statusCode, expectedStatusCode);
+        // Convert Status Code as String to Int
+        int expectedStatusCodeInt = Integer.parseInt(expectedStatusCode);
+        System.out.println("Asserting return Status Code for " + path + " equals " + expectedStatusCodeInt);
+        assertEquals(statusCode, expectedStatusCodeInt);
 
         // Print JSON response as string
         jsonAsString = response.asString();
@@ -179,6 +185,24 @@ public class GoRest {
         System.out.println("Asserting return Status Code for " + path + " equals " + expectedStatusCode);
         assertEquals(statusCode, expectedStatusCode);
 
+
+    }
+
+    public static void main (String args[]){
+
+        String baseURI;
+        String bearerToken = "JGPtiMB578pYv3L9Djd_iV7lgvuywh-Owe4n";
+        String jsonAsString = "";
+
+        int port;
+        int statusCode;
+        String userId;
+
+        GoRest.get("/users", "200");
+        GoRest.get("/posts", "200");
+        GoRest.get("/comments", "200");
+        GoRest.get("/albums", "200");
+        GoRest.get("/photos", "200");
 
     }
 
