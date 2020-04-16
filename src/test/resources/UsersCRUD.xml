@@ -1,0 +1,44 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name = "Rest Assured">
+
+    <parameter name="first_name" value="Alan"></parameter>
+    <parameter name="last_name" value="Stenback"></parameter>
+    <parameter name="email" value="alan.stenback@123.com"></parameter>
+    <parameter name="gender" value="male"></parameter>
+
+
+    <test name="Testing POST /Users">
+        <classes>
+            <class name="GoRest">
+                <methods>
+                    <parameter name="path" value="/users"></parameter>
+                    <include name="post"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Testing PUT /Users">
+        <classes>
+            <class name="GoRest">
+                <methods>
+                    <parameter name="path" value="/users"></parameter>
+                    <include name="put"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Testing DELETE /Users">
+        <classes>
+            <class name="GoRest">
+                <methods>
+                    <parameter name="path" value="/users"></parameter>
+                    <include name="delete"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+ </suite>

@@ -1,0 +1,62 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+
+<suite name = "Rest Assured">
+
+
+    <test name="Get all users">
+        <classes>
+            <class name="GoRest">
+                <parameter name="path" value="/users"></parameter>
+                <methods>
+                    <include name="get"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Get all posts">
+        <classes>
+            <class name="GoRest">
+                <parameter name="path" value="/posts"></parameter>
+                <methods>
+                    <include name="get"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Get all comments">
+        <classes>
+            <class name="GoRest">
+                <parameter name="path" value="/comments"></parameter>
+                <methods>
+                    <include name="get"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Get all albums">
+        <classes>
+            <class name="GoRest">
+                <parameter name="path" value="/albums"></parameter>
+                <methods>
+                    <include name="get"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Get all photos">
+        <classes>
+            <class name="GoRest">
+                <parameter name="path" value="/photos"></parameter>
+                <methods>
+                    <include name="get"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
