@@ -63,12 +63,15 @@ public class GoRest {
 
     @Test
     @Parameters({"path", "firstName", "lastName", "gender", "email", "expectedStatusCode"})
-    public void post(@Optional("/users") String path,
+    public static void post(@Optional("/users") String path,
                      @Optional("Alan") String firstName,
                      @Optional("Stenback") String lastName,
                      @Optional("male") String gender,
                      @Optional("alan.stenback@1234.com") String email,
                      @Optional("302") int expectedStatusCode){
+
+        GoRest.baseURI = "https://gorest.co.in/public-api";
+        GoRest.port = 80;
 
         String endpoint = baseURI + path;
         System.out.println(endpoint);
@@ -113,13 +116,16 @@ public class GoRest {
 
     @Test
     @Parameters({"path", "dob", "phone", "website", "address", "status", "expectedStatusCode"})
-    public void put(@Optional("/users") String path,
+    public static void put(@Optional("/users") String path,
                      @Optional("03/20/1973") String dob,
                      @Optional("phone") String phone,
                      @Optional("https://wwww.alanstenback.us") String website,
                      @Optional("po box 123, fairplay, co 80440") String address,
                      @Optional("active") String status,
                      @Optional("200") int expectedStatusCode){
+
+        GoRest.baseURI = "https://gorest.co.in/public-api";
+        GoRest.port = 80;
 
         String endpoint = baseURI + path + "/" + userId;
         System.out.println(endpoint);
@@ -162,7 +168,10 @@ public class GoRest {
 
     @Test
     @Parameters({"path", "expectedStatusCode"})
-    public void delete(@Optional("/users") String path, @Optional("200") int expectedStatusCode){
+    public static void delete(@Optional("/users") String path, @Optional("200") int expectedStatusCode){
+
+        GoRest.baseURI = "https://gorest.co.in/public-api";
+        GoRest.port = 80;
 
         String endpoint = baseURI + path + "/" + userId;
         System.out.println(endpoint);
@@ -197,6 +206,11 @@ public class GoRest {
         int port;
         int statusCode;
         String userId;
+
+        GoRest.post("/users", "Alan", "Stenback", "male", "alan.stenback@12345.com", 302);
+        GoRest.put("/users", "03/20/1973", "7198391234", "htttps://wwww.alanstenback.us", "PO BOX 123, Fairplay, CO 80440", "active",200);
+        GoRest.delete("/users", 200);
+
 
         GoRest.get("/users", "200");
         GoRest.get("/posts", "200");
