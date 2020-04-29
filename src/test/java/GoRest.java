@@ -13,11 +13,11 @@ import static org.testng.Assert.assertEquals;
 
 public class GoRest {
 
-    private static String baseURI;
+    private static String baseURI = "https://gorest.co.in/public-api";
     private static String bearerToken = "JGPtiMB578pYv3L9Djd_iV7lgvuywh-Owe4n";
     private static String jsonAsString = "";
 
-    private static int port;
+    private static int port = 80;
     private static int statusCode;
     private static String userId;
 
@@ -31,9 +31,6 @@ public class GoRest {
     @Test
     @Parameters({"path", "expectedStatusCode"})
     public static void get(@Optional("/users") String path, @Optional("200") String expectedStatusCode){
-
-        GoRest.baseURI = "https://gorest.co.in/public-api";
-        GoRest.port = 80;
 
         String endpoint = baseURI + path;
         System.out.println(endpoint);
@@ -70,9 +67,6 @@ public class GoRest {
                      @Optional("alan.stenback@1234.com") String email,
                      @Optional("302") int expectedStatusCode){
 
-        GoRest.baseURI = "https://gorest.co.in/public-api";
-        GoRest.port = 80;
-
         String endpoint = baseURI + path;
         System.out.println(endpoint);
 
@@ -89,7 +83,6 @@ public class GoRest {
         request.body(requestParams.toJSONString());
 
         // Post the request and check the response
-
         Response response = given()
                 .headers("Authorization","Bearer " + bearerToken,"Content-Type", ContentType.JSON, "Accept", ContentType.JSON)
                 .body(requestParams)
@@ -123,9 +116,6 @@ public class GoRest {
                      @Optional("po box 123, fairplay, co 80440") String address,
                      @Optional("active") String status,
                      @Optional("200") int expectedStatusCode){
-
-        GoRest.baseURI = "https://gorest.co.in/public-api";
-        GoRest.port = 80;
 
         String endpoint = baseURI + path + "/" + userId;
         System.out.println(endpoint);
@@ -170,9 +160,6 @@ public class GoRest {
     @Parameters({"path", "expectedStatusCode"})
     public static void delete(@Optional("/users") String path, @Optional("200") int expectedStatusCode){
 
-        GoRest.baseURI = "https://gorest.co.in/public-api";
-        GoRest.port = 80;
-
         String endpoint = baseURI + path + "/" + userId;
         System.out.println(endpoint);
 
@@ -199,19 +186,12 @@ public class GoRest {
 
     public static void main (String args[]){
 
-        String baseURI;
-        String bearerToken = "JGPtiMB578pYv3L9Djd_iV7lgvuywh-Owe4n";
-        String jsonAsString = "";
-
-        int port;
-        int statusCode;
-        String userId;
-
+        // Testing Users CRUD
         GoRest.post("/users", "Alan", "Stenback", "male", "alan.stenback@12345.com", 302);
-        GoRest.put("/users", "03/20/1973", "7198391234", "htttps://wwww.alanstenback.us", "PO BOX 123, Fairplay, CO 80440", "active",200);
+        GoRest.put("/users", "03/20/1973", "7198391234", "https://wwww.alanstenback.us", "PO BOX 123, Fairplay, CO 80440", "active",200);
         GoRest.delete("/users", 200);
 
-
+        // Testing Get All Resources
         GoRest.get("/users", "200");
         GoRest.get("/posts", "200");
         GoRest.get("/comments", "200");
@@ -219,68 +199,4 @@ public class GoRest {
         GoRest.get("/photos", "200");
 
     }
-
-    /**
-
-    public void getAllUserNames(){
-
-        String endpoint = baseURI + "/users";
-        int statusCode;
-
-        // Get All Users
-        Response response = given()
-                            .headers("Authorization","Bearer " + bearerToken,"Content-Type", ContentType.JSON, "Accept", ContentType.JSON)
-                            .get(endpoint)
-                            .then()
-                            .contentType(ContentType.JSON)
-                            .extract()
-                            .response();
-
-        statusCode = response.getStatusCode();
-        assertEquals(statusCode, 200);
-
-        // Print JSON response as string
-        jsonAsString = response.asString();
-        System.out.println("Reponse Body: " + jsonAsString);
-
-        // Extract meta data
-        String success = response.jsonPath().getString("_meta.success");
-        String code = response.jsonPath().getString("_meta.code");
-        String message = response.jsonPath().getString("_meta.message");
-        String totalCount = response.jsonPath().getString("_meta.totalCount");
-        String pageCount = response.jsonPath().getString("_meta.pageCount");
-        String currentPage = response.jsonPath().getString("_meta.currentPage");
-        String perPage = response.jsonPath().getString("_meta.perPage");
-
-        // Print meta data
-        System.out.println("Success: " + success);
-        System.out.println("Code: " + code);
-        System.out.println("Message: " + message);
-        System.out.println("totalCount: " + totalCount);
-        System.out.println("pageCount: " + pageCount);
-        System.out.println("currentPage: " + currentPage);
-        System.out.println("perPage: " + perPage);
-
-        // Print Ids
-        List<String> ids = response.jsonPath().getList("result.id");
-        for(String i:ids) {
-            System.out.println(i);
-        }
-
-        // Print Names
-        List<String> first_names = response.jsonPath().getList("result.first_name");
-        for(String i:first_names) {
-            System.out.println(i);
-        }
-
-        // Print Names
-        List<String> last_names = response.jsonPath().getList("result.last_name");
-        for(String i:last_names) {
-            System.out.println(i);
-        }
-
-    }
-
-     **/
-
 }
