@@ -1,8 +1,6 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-
 <suite name = "Rest Assured">
-
 
     <test name="Get all users">
         <classes>
